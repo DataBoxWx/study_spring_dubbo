@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+        
+    <!-- 消费者配置文件 -->
+    
+    <!-- 声明服务的名称， 服务名称是由dubbo框架内部使用的 -->
+    <dubbo:application name="05-dubboConsume"/>
+    
+    <!-- 声明要使用的远程服务
+         interface:远程服务接口的全限定名称
+         id:dubbo框架的动态代理对象的名称
+         url:访问dubbo服务的地址
+         registry：注册中心，不使用注册中心赋值为 N/A
+         
+         http://localhost:8080/应用
+     -->
+    <dubbo:reference interface="com.wkcto.service.WeatherService" id="remoteWeatherService" 
+                url="dubbo://localhost:20880" registry="N/A" />
+                
+    <dubbo:reference interface="com.wkcto.service.MovieService" id="remoteMovieService" 
+                url="dubbo://localhost:20880" registry="N/A" />
+                
+                
+    <!-- 声明InvoekService -->
+    <bean id="invokeService" class="com.wkcto.client.InvokeService">
+    	<property name="remoteWs" ref="remoteWeatherService" />
+    	<property name="remoteMs" ref="remoteMovieService" />
+    </bean>
+</beans>

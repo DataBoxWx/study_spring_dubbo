@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 
+              指定对象的作用域：作用域是值对象的存在范围和可见性。
+       1.singleton：单例，表示在spring的容器中对象只有一个。 是默认值。
+                 如果指定单例作用域：<bean id="xxx" class="yyy" scope="singleton"/>  
+                 
+       2.prototype:原型，每次调用getBean()方法的时候，创建一个新的对象。
+                 如何指定原型作用域：<bean id="xx" class="yyy" scope="prototype" />
+       
+    -->
+    <!-- 单例 -->
+    <!--  <bean id="someService" class="com.bjpowernode.ba02.SomeServiceImpl" scope="singleton"/> -->
+    
+	<!-- 原型 -->
+	<bean id="someService" class="com.bjpowernode.ba02.SomeServiceImpl" scope="prototype"/>
+   
+</beans>
+

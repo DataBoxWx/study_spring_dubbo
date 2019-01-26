@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myCollections" class="com.bjpowernode.ba04.MyCollections">
+		<!-- String []  -->
+		<property name="mystr">
+			<array>
+				<value>北京</value>
+				<value>上海</value>
+			</array>
+		</property>
+		
+		<!-- Set<String> -->
+		<property name="myset">
+			<set>
+				<value>朝阳区</value>
+				<value>大兴区</value>
+			</set>
+		</property>
+		
+		<!-- List<Student> -->
+		<property name="mylist">
+			<list>
+				<ref bean="myStudent"/>
+				<ref bean="myStudent2"/>
+			</list>
+		</property>
+		
+		<!-- Map<String,Integer> -->
+		<property name="mymap">
+			<map>
+				<entry key="height" value="180" />
+				<entry key="weight" value="70" />
+			</map>
+		</property>
+		
+		<!-- Properties: key ,value都是String的Map -->
+		<property name="myprop">
+			<props>
+			    <!-- 
+			       key: key的值
+			       value: <prop>key对应的值</prop>
+			     -->
+				<prop key="tel">010-5485567897</prop>
+				<prop key="phone">136778979749</prop>
+			</props>
+		</property>
+		
+		<!-- List<Map<String,String>> -->
+		<property name="mylistmap">
+			<list>
+				<map> <!-- 0 -->
+					<entry key="weight" value="80kg" />
+					<entry key="height" value="180cm" />
+				</map>
+				
+				<map> <!-- 1 -->
+					<entry key="tel" value="010-467976368" />
+					<entry key="phone" value="136797897987"/>
+				</map>
+			</list>
+		
+		</property>
+	
+	</bean>
+
+
+    <!-- 使用name属性，完成构造注入 -->
+    <bean id="myStudent" class="com.bjpowernode.ba04.Student">
+        <constructor-arg name="myage" value="29" />
+      	<constructor-arg name="myname" value="李四" />
+      	<constructor-arg name="myXueXiao" ref="mySchool" />
+    </bean>
+    
+    <!-- 构造注入，使用index属性， 表示构造方法参数位置，从  0 开始 -->
+    <bean id="myStudent2" class="com.bjpowernode.ba04.Student">
+    	 <constructor-arg index="0" value="张三" />
+    	 <constructor-arg index="2" ref="mySchool" />
+    	 <constructor-arg index="1" value="20" />
+    </bean>
+   
+    <!-- 省略index -->
+     <bean id="myStudent3" class="com.bjpowernode.ba04.Student">
+    	 <constructor-arg  value="周丽" />
+    	 <constructor-arg  value="20" />
+    	 <constructor-arg  ref="mySchool" />
+    </bean>
+     <!-- 声明Shcool类型的对象 -->
+    <bean id="mySchool" class="com.bjpowernode.ba04.School">
+    	<property name="name" value="北京大学" />
+    	<property name="address" value="北京的海淀区" />
+    </bean>
+   
+    
+    
+</beans>
+

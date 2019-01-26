@@ -1,0 +1,10 @@
+java -jar zookeeper-dev-ZooInspector.jar ZooInspector
+
+=====================================================
+在dubbo的提供者
+ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-provider.xml");
+		ac.start();
+		System.out.println("provider start finished");
+		System.in.read();
+		ac.destroy();
+		ac.close();

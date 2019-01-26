@@ -1,0 +1,4 @@
+service=com.bjpowernode.service.UserServiceImpl
+myUserDao=com.bjpowernode.dao.UserDaoMySQLImpl
+myUserDaoOracle=com.bjpowernode.dao.UserDaoOracleImpl
+service#userDao=myUserDao

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+        
+    <!-- 服务提供者的配置文件 -->
+    
+    
+    <!-- 指定服务的名称： 名称是dubbo框架自己使用的， 最好是唯一值。 是自定义的
+         name:服务的名称
+    -->
+    <dubbo:application name="05-dubboProvider"/>
+    
+    <!-- 声明暴露的服务
+         interface:服务接口的全限定名称
+         ref:服务接口的实现类bean的id
+         protocol:访问服务的协议名称，推荐使用 dubbo
+         registry:注册中心的信息， 第一个项目不使用注册中心，赋值为 N/A
+    
+     -->
+    <dubbo:service interface="com.wkcto.service.WeatherService" ref="weatherService" 
+                   registry="N/A" />
+    <dubbo:service interface="com.wkcto.service.MovieService" ref="movieService"
+                    registry="N/A" />
+    
+    <dubbo:protocol name="dubbo" port="20880" />
+    <!-- 指定服务实现类bean对象 -->
+    <bean id="weatherService" class="com.wkcto.service.WeatherServiceImpl" />
+    <bean id="movieService" class="com.wkcto.service.MovieServiceImpl" />
+    
+</beans>

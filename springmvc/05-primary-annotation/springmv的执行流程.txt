@@ -1,0 +1,33 @@
+
+
+springmvc处理流程
+1.请求交给中央调度器
+2.中央调度器把请求交给了处理器的映射器（实现了HandlerMapping接口的类叫做处理器映射器）
+  处理器映射器的作用：根据请求找到对应的处理器对象（some.do -- MyController）. 把找到的处理器对象
+  放入到处理器执行链（HandlerExecutionChain）的对象中保存。
+3.中央调度器把处理器执行链中的处理器对象（MyController)交给了处理器适配器（实现了HandlerAdapter接口的类）
+  处理器适配器内部根据处理器对象找到适配器对象（和处理器对应的）
+
+4.处理器适配器对象，调用处理器方法（MyControler的handlerRequest）,处理业务，得到包含处理结果的ModelAndView
+
+5.中央调度器把ModelAndView交给了视图解析器，由视图解析器根据前缀和后缀创建视图对象View.
+  框架中View是一个接口，表示视图的。
+
+6.中央调度器把Model中的数据添加到View, 通过Response把视图输出到浏览器。 请求处理完毕
+
+
+
+org.springframework.web.servlet.FrameworkServlet.CONTEXT.springmvc
+创建好的springmvc的容器对象wac 放入到ServletContext作用域
+getServletContext().setAttribute(attrName, wac);
+
+
+处理器的映射器
+org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping
+org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping
+
+
+处理器的适配器：
+org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter
+org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter
+org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter

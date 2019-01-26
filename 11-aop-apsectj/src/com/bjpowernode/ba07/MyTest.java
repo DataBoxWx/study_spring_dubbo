@@ -1,0 +1,25 @@
+package com.bjpowernode.ba07;
+
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MyTest {
+
+
+	@Test
+	public void test01(){
+		String configLocation="com/bjpowernode/ba07/applicationContext.xml";
+		ApplicationContext ctx  = new ClassPathXmlApplicationContext(configLocation);
+		
+		//从spring获取aspectj修改的目标对象，就是代理对象
+		SomeServiceImpl service  = (SomeServiceImpl) ctx.getBean("someServiceTarget");
+		//如果目标类没有接口，框架使用cglib动态代理。
+		System.out.println("service:"+service.getClass().getName());
+
+		service.doThird();
+		
+	}
+	
+	
+}

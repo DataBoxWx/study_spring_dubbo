@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- springmvc配置文件：管理视图层对象 -->
+	<!-- 声明组件扫描器：指定@Controller注解的包名 -->
+	<context:component-scan base-package="com.bjpowernode.controllers" />
+	<context:component-scan base-package="com.bjpowernode.aop" />
+	
+	<!-- 声明视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 声明注解驱动 -->
+	<mvc:annotation-driven />
+	
+	<aop:aspectj-autoproxy />
+	
+	<!-- 处理静态资源 -->
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	
+	<!-- spring的配置文件：Service和Dao层对象 -->
+	
+	<!-- 声明组件扫描器， 指定@Service的包名 -->
+	<context:component-scan base-package="com.bjpowernode.services" />
+	
+	<!-- 加载属性配置文件 -->
+	<context:property-placeholder location="classpath:conf/jdbc.properties"/>
+	
+	<!-- 声明数据源DataSource -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.passwd}" />
+	</bean>
+	
+	<!-- 声明SqlSessionFactoryBean，创建SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:conf/mybatis.xml" />
+	</bean>
+	
+	<!-- 声明MyBatis的扫描器，创建Dao实现类对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.bjpowernode.dao" />
+	</bean>
+	
+
+</beans>

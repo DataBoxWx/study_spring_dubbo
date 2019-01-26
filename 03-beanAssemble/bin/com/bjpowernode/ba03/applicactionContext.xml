@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 
+            定义bean的生命始末方法  ： 可以参与到spring创建和销毁对象的过程中。
+      bean的生命始末方法步骤：
+      1.在java类中定义方法： 方法的原型 public void 方法名自定义的(无参数的)
+      2.在spring配置文件中定义bean的时候， 要指定方法的存在。
+        <bean id="xx" class="yyy" init-method="bean的初始化的方法名" destory-method="bean销毁之前执行的方法" />
+
+    -->
+
+    <bean id="someService" class="com.bjpowernode.ba03.SomeServiceImpl" 
+       init-method="setUp" destroy-method="tearDown"/> 
+    
+
+   
+</beans>
+
